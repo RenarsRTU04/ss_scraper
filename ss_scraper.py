@@ -264,10 +264,10 @@ if __name__ == "__main__":
         # Filtrējam sistā auto datus
         sista_auto_filtrēts = {
             'Marka': sista_auto_dati.get('marka', '-'),
-            'Dzinējs': sista_auto_dati.get('dzinējs', '-'),
+            'Dzinējs': sista_auto_dati.get('modelis', '-'),
             'Gads': sista_auto_dati.get('gads', '-'),
-            'Nobraukums (km)': f"{sista_auto_dati.get('nobraukums', '-')} km",
-            'Cena (EUR)': f"{sista_auto_dati.get('cena', '-')} EUR",
+            'Nobraukums (km)': f"{sista_auto_dati.get('dzinējs', '-')} km",
+            'Cena (EUR)': f"{sista_auto_dati.get('nobraukums', '-')} EUR",
             'Saite': sista_auto_dati.get('saite', '-'),
             'Statuss': 'Sists'
         }
@@ -277,10 +277,10 @@ if __name__ == "__main__":
         for auto in nesistie_auto_saraksts:
             auto_filtrēts = {
                 'Marka': auto.get('marka', '-'),
-                'Dzinējs': auto.get('dzinējs', '-'),
+                'Dzinējs': auto.get('modelis', '-'),
                 'Gads': auto.get('gads', '-'),
-                'Nobraukums (km)': f"{auto.get('nobraukums', '-')} km",
-                'Cena (EUR)': f"{auto.get('cena', '-')} EUR",
+                'Nobraukums (km)': f"{auto.get('dzinējs', '-')} km",
+                'Cena (EUR)': f"{auto.get('nobraukums', '-')} EUR",
                 'Saite': auto.get('saite', '-'),
                 'Statuss': 'Nesists'
             }
