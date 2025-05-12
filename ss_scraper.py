@@ -186,6 +186,9 @@ class SSAutoScraper:
                 # Nobraukums
                 if len(columns) >= 7:
                     auto['nobraukums'] = self._extract_number(self._clean_text(columns[6].text))
+                 # Ātrumkārba (tiek lasīta, bet netiek iekļauta CSV)
+                if len(columns) >= 8:
+                     auto['ātrumkārba'] = self._clean_text(columns[7].text)
 
             # Filtrējam pēc gada ±5
             if year_min is not None and year_max is not None:
@@ -211,12 +214,13 @@ class SSAutoScraper:
         print("\nLīdzīgi nesisti auto (meklēts pēc pieejamajiem parametriem):")
 
         if nesistie_auto:
+            # Šī tabula konsolē attēlo vairāk datus salīdzinājumam, nekā CSV fails
             headers = ["Marka", "Dzinējs", "Gads", "Nobraukums", "Cena", "Saite"]
             tabulas_dati = []
             for auto in nesistie_auto:
                 tabulas_dati.append([
                     auto.get('marka', '-'),
-                    f"{auto.get('modelis', '-')} L",
+                    auto.get('modelis', '-'),
                     auto.get('gads', '-'),
                     f"{auto.get('dzinējs', '-')} km",
                     f"{auto.get('nobraukums', '-')} EUR",
@@ -255,15 +259,35 @@ if __name__ == "__main__":
     scraper.salīdzināt_cenas(sista_auto_dati, nesistie_auto_saraksts)
 
     try:
-        dati_saglabasanai = []
-        sista_auto_saglabat = sista_auto_dati.copy()
-        sista_auto_saglabat['Status'] = 'Sists'
-        dati_saglabasanai.append(sista_auto_saglabat)
+        dati_saglabasanai_filtrēti = []
+
+        # Filtrējam sistā auto datus
+        sista_auto_filtrēts = {
+            'Marka': sista_auto_dati.get('marka', '-'),
+            'Dzinējs': sista_auto_dati.get('dzinējs', '-'),
+            'Gads': sista_auto_dati.get('gads', '-'),
+            'Nobraukums (km)': f"{sista_auto_dati.get('nobraukums', '-')} km",
+            'Cena (EUR)': f"{sista_auto_dati.get('cena', '-')} EUR",
+            'Saite': sista_auto_dati.get('saite', '-'),
+            'Statuss': 'Sists'
+        }
+        dati_saglabasanai_filtrēti.append(sista_auto_filtrēts)
+
+        # Filtrējam nesisto auto datus
         for auto in nesistie_auto_saraksts:
-            auto_saglabat = auto.copy()
-            auto_saglabat['Status'] = 'Nesists'
-            dati_saglabasanai.append(auto_saglabat)
-        df_all = pd.DataFrame(dati_saglabasanai)
+            auto_filtrēts = {
+                'Marka': auto.get('marka', '-'),
+                'Dzinējs': auto.get('dzinējs', '-'),
+                'Gads': auto.get('gads', '-'),
+                'Nobraukums (km)': f"{auto.get('nobraukums', '-')} km",
+                'Cena (EUR)': f"{auto.get('cena', '-')} EUR",
+                'Saite': auto.get('saite', '-'),
+                'Statuss': 'Nesists'
+            }
+            dati_saglabasanai_filtrēti.append(auto_filtrēts)
+
+        # Veidojam DataFrame no filtrētajiem datiem
+        df_all = pd.DataFrame(dati_saglabasanai_filtrēti)
         faila_nosaukums = "auto_salidzinajums.csv"
         df_all.to_csv(faila_nosaukums, index=False, encoding='utf-8-sig')
         print(f"\nDati saglabāti failā: {faila_nosaukums}")
