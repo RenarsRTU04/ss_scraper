@@ -2,9 +2,9 @@
 
 ## Projekta uzdevums
 
-Šī Python programma ir izstrādāta, lai palīdzētu lietotājiem atrast nesistus automobiļus ss.com sludinājumu portālā, balstoties uz konkrēta sistā auto sludinājuma datiem. Lietotājs ievada saiti uz ss.com sludinājumu, kurā aprakstīts sists auto. Programma automātiski nolasa šī auto marku, modeli, izlaiduma gadu, dzinēja tipu, nobraukumu un cenu. Pēc tam tā veic meklēšanu ss.com portālā, lai atrastu tādas pašas markas un modeļa automašīnas, kas nav sistas, un izvada šo sludinājumu saites, kā arī veic cenu salīdzinājumu. Visi rezultāti tiek pārskatāmi izvadīti tabulas veidā un saglabāti CSV failā, lai lietotājs varētu tos analizēt arī vēlāk.
+Šī Python programma ir izstrādāta, lai palīdzētu lietotājiem atrast nesistus auto ss.com sludinājumu portālā, balstoties uz konkrēta sistā auto sludinājuma datiem. Lietotājs ievada saiti uz ss.com sludinājumu, kurā ir sists auto. Programma automātiski nolasa šī auto marku, modeli, izlaiduma gadu, dzinēja tipu, nobraukumu un cenu. Pēc tam tā veic meklēšanu ss.com portālā, lai atrastu tādas pašas markas un modeļa automašīnas, kas nav sistas, un izvada šo sludinājumu saites, kā arī veic cenu salīdzinājumu. Visi rezultāti tiek pārskatāmi izvadīti tabulas veidā un saglabāti CSV failā, lai lietotājs varētu tos analizēt arī vēlāk.
 
-Projekta galvenais uzdevums ir atvieglot auto pircēju darbu, ļaujot ātri un ērti salīdzināt sistā auto cenu ar līdzīgu, bet nesistu auto cenām tirgū. Tas palīdz pieņemt pamatotākus lēmumus par auto iegādi vai pārdošanu, kā arī sniedz pārskatāmu informāciju par tirgus situāciju konkrētajam auto modelim un markai.
+Projekta galvenais uzdevums ir atvieglot auto pircēju darbu, ļaujot ātri un ērti salīdzināt sistā auto cenu ar līdzīgu, bet nesistu auto cenām tirgū. Tas palīdz atvieglot auto iegādi vai pārdošanu, kā arī sniedz pārskatāmu informāciju par tirgus situāciju konkrētajam auto modelim un markai.
 
 ## Izmantotās Python bibliotēkas un to pielietojums
 
@@ -60,15 +60,13 @@ pip install requests beautifulsoup4 pandas tabulate
 ### Programmas palaišana:
 
 1.  Programma pieprasa ievadīt ss.com sludinājuma saiti ar sistu auto.
-2.  Programma nolasa sludinājuma saturu, nosaka auto marku, modeli, gadu, dzinēju, nobraukumu un cenu.
-3.  Programma izveido meklēšanas saiti uz ss.com ar tādu pašu marku un modeli, kā arī līdzīgu izlaiduma gadu (+/- 5 gadi).
+2.  Programma nolasa sludinājuma saturu: auto marku, modeli, gadu, dzinēju, nobraukumu un cenu.
+3.  Programma uzsāk meklēšanu iekš ss.com, ar tādu pašu marku un modeli, kā arī līdzīgu izlaiduma gadu (+/- 5 gadi).
 4.  Tiek meklēti līdzīgi nesisti auto, un rezultāti tiek izvadīti tabulas veidā.
-5.  Tiek veikts cenu salīdzinājums starp sisto un nesistajiem auto.
-6.  Visi dati tiek saglabāti CSV failā, kuru var atvērt ar Excel vai citu tabulu redaktoru.
+5.  Visi dati tiek saglabāti CSV failā, kuru var atvērt ar Excel.
 
 ### Rezultātu interpretācija:
 
 -   Konsolē tiek izvadīta informācija par sisto auto un atrastajiem nesistajiem auto.
--   Tiek parādīts cenu salīdzinājums (vidējā, minimālā, maksimālā cena).
 -   Visi dati tiek saglabāti CSV failā, kas ļauj lietotājam tos analizēt arī vēlāk.
 -   Ja sludinājumā nav norādīta marka vai modelis, programma var nespēt izveidot meklēšanas saiti.
